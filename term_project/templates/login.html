@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login_style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='flash_message.js') }}"></script>
+  </head>
+  <body>
+    <div id="flash-messages">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <script>
+        showFlashMessage('{{ messages[0] }}');
+      </script>
+      {% endif %} {% endwith %}
+    </div>
+    <div class="login-container">
+      <div class="login-image">
+        <div class="resize_image">
+          <img
+            src="{{ url_for('static', filename='images/signin_image.jpg') }}"
+            alt="Login Image"
+          />
+        </div>
+      </div>
+      <div class="login-form">
+        <h2>Log In</h2>
+        <form method="POST" action="{{ url_for('login') }}">
+          <div class="group">
+            <label for="email">Your Email</label>
+            <input
+              type="text"
+              name="email"
+              class="group_input"
+              id="email"
+              placeholder="Your Email"
+              required
+            />
+          </div>
+          <div class="group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="group_input"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="login_btn">Log in</button>
+        </form>
+        <p><a href="{{ url_for('register') }}">Create an account</a></p>
+      </div>
+    </div>
+  </body>
+</html>

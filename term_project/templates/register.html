@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='flash_message.js') }}"></script>
+  </head>
+  <body>
+    <div id="flash-messages">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <script>
+        showFlashMessage('{{ messages[0] }}');
+      </script>
+      {% endif %} {% endwith %}
+    </div>
+    <div class="signup-container">
+      <div class="signup-form">
+        <h2>Sign up</h2>
+        <form method="POST" action="{{ url_for('register') }}">
+          {{ form.hidden_tag() }}
+          <div class="group">
+            <label for="username">Your Name</label>
+            {{ form.username(class="group_input", id="username",
+            placeholder="Your Name") }}
+          </div>
+          <div class="group">
+            <label for="email">Your Email</label>
+            {{ form.email(class="group_input", id="email", placeholder="Your
+            Email") }}
+          </div>
+          <div class="group">
+            <label for="password">Password</label>
+            {{ form.password(class="group_input", id="password",
+            placeholder="Password") }}
+          </div>
+          <div class="group">
+            <label for="confirm_password">Repeat your password</label>
+            {{ form.confirm_password(class="group_input", id="confirm_password",
+            placeholder="Repeat your password") }}
+          </div>
+          <button type="submit" class="register_btn">Register</button>
+        </form>
+        <p><a href="{{ url_for('login') }}">I am already member</a></p>
+      </div>
+      <div class="signup_image">
+        <div class="resize_image">
+          <img
+            src="{{ url_for('static', filename='images/signup_image.jpg') }}"
+            alt="Signup Image"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
