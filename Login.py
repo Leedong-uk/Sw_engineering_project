@@ -16,7 +16,6 @@ def login():
             user = collection.find_one({"email": email, "password": password})
             if user:
                 session['username'] = user['username']
-                flash('로그인 성공')
                 return redirect(url_for('homepage'))
             else:
                 flash('로그인 실패')
@@ -26,4 +25,4 @@ def login():
 
 def logout():
     session.pop('username', None)
-    return redirect(url_for('home'))
+    return redirect(url_for('homepage'))

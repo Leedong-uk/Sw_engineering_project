@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>파일 업로드</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='upload_style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <form
+        id="uploadForm"
+        action="/posting"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-inner">
+          <div class="image-section">
+            <div class="image-preview" id="imagePreview">
+              <img id="imageElement" src="" alt="No Image" />
+            </div>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="document.getElementById('image_file').click();"
+            >
+              파일 선택
+            </button>
+            <input
+              type="file"
+              class="custom-file-input"
+              id="image_file"
+              name="image_file"
+              style="display: none"
+              onchange="previewImage(event)"
+            />
+          </div>
+          <div class="separator"></div>
+          <div class="form-section">
+            <h2>파일 업로드</h2>
+            <div class="form-group">
+              <label for="image_title">제목</label>
+              <input
+                type="text"
+                class="form-control"
+                id="image_title"
+                name="image_title"
+                placeholder="Please enter a title"
+              />
+            </div>
+            <div class="form-group">
+              <label for="image_keyword">키워드</label>
+              <input
+                type="text"
+                class="form-control"
+                id="image_keyword"
+                name="image_keyword"
+                placeholder="Enter keywords"
+              />
+            </div>
+            <div class="form-group">
+              <label for="image_description">설명</label>
+              <textarea
+                class="form-control"
+                id="image_description"
+                name="image_description"
+                placeholder="Enter a description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">업로드</button>
+      </form>
+    </div>
+    <script>
+      function previewImage(event) {
+        const input = event.target;
+        const reader = new FileReader();
+        reader.onload = function () {
+          const imageElement = document.getElementById('imageElement');
+          imageElement.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    </script>
+    {%with messages = get_flashed_messages()%} {%if messages %}
+    <script type="text/javascript">
+      alert('{{messages[-1]}}');
+    </script>
+    {%endif%} {%endwith%}
+  </body>
+</html>

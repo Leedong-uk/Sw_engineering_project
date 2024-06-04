@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      .container {
+        display: flex;
+        height: 100vh;
+      }
+      .sidebar {
+        width: 200px;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-right: 1px solid #ddd;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar h3 {
+        margin-top: 0;
+        color: #333;
+      }
+      .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      .sidebar ul li {
+        margin: 10px 0;
+        color: #666;
+        cursor: pointer;
+      }
+      .sidebar ul li:hover {
+        color: #000;
+      }
+
+      .main-content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .header h2 {
+        margin: 0;
+        color: #333;
+      }
+      .header button {
+        padding: 5px 10px;
+        margin-left: 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .header button:hover {
+        background-color: #f0f0f0;
+      }
+      .photo-grid {
+        display: grid;
+        margin-top: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      .photo-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+      .photo-card:hover {
+        transform: scale(1.05);
+      }
+      .photo-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .photo-card .info {
+        padding: 10px;
+        text-align: center;
+      }
+      .photo-card .info h4 {
+        margin: 10px 0 5px;
+        color: #333;
+      }
+      .photo-card .info p {
+        margin: 0;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <h3>Discover</h3>
+        <ul>
+          <li>- Photo list</li>
+          <li>- User list</li>
+          <li>- Message</li>
+        </ul>
+      </div>
+      <div class="main-content">
+        <div class="header">
+          <h2>All photo</h2>
+          <div>
+            <button onclick="location.href='/login'">Log In</button>
+          </div>
+        </div>
+        <a href="http://127.0.0.1:5000/upload">+ Add photo</a>
+        <div class="photo-grid">
+          <div class="photo-card">
+            <img
+              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
+              alt="Photo"
+            />
+            <div class="info">
+              <h4>Simon Garnett</h4>
+              <p>keyword</p>
+            </div>
+          </div>
+          <div class="photo-card">
+            <img
+              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
+              alt="Photo"
+            />
+            <div class="info">
+              <h4>Marion Samson</h4>
+              <p>keyword</p>
+            </div>
+          </div>
+          <div class="photo-card">
+            <img
+              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
+              alt="Photo"
+            />
+            <div class="info">
+              <h4>Jeremy Elington</h4>
+              <p>keyword</p>
+            </div>
+          </div>
+          <div class="photo-card">
+            <img
+              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
+              alt="Photo"
+            />
+            <div class="info">
+              <h4>Vanessa Lopez</h4>
+              <p>keyword</p>
+            </div>
+          </div>
+          <div class="photo-card">
+            <img
+              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
+              alt="Photo"
+            />
+            <div class="info">
+              <h4>Alexander Johnson</h4>
+              <p>keyword</p>
+            </div>
+          </div>
+          <div class="photo-card">
+            <img
+              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
+              alt="Photo"
+            />
+            <div class="info">
+              <h4>Alexandra Johnson</h4>
+              <p>keyword</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%with messages = get_flashed_messages()%} {%if messages %}
+    <script type="text/javascript">
+      alert('{{messages[-1]}}');
+    </script>
+    {%endif%} {%endwith%}
+  </body>
+</html>

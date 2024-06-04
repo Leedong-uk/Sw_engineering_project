@@ -1,17 +1,25 @@
-from flask import Flask, session, redirect, url_for
+from flask import Flask, session, redirect, url_for, render_template
 from Login import login as login_function, logout as logout_function
+from Upload import upload as upload_function, posting as posting_function
+from Homepage import homepage as homepage_function
 from Register import register as register_function
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'termproject2024'
+app.secret_key = 'termproject2024'
 
-@app.route('/hompage')
+@app.route('/')
 def homepage():
-    if 'username' in session:
-        return f'Logged in as {session["username"]}'
-    return 'You are not logged in'
+    return homepage_function()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/upload')
+def upload():
+    return upload_function()
+
+@app.route('/posting', methods=['POST'])
+def posting():
+    return posting_function()
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     return login_function()
 
