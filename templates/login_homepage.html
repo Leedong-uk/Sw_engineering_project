@@ -55,7 +55,18 @@
         margin: 0;
         color: #333;
       }
-      .header button {
+      .header .search-bar {
+        display: flex;
+        align-items: center;
+      }
+      .search-bar input[type='text'] {
+        padding: 5px;
+        width: 400px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
+      .search-bar button {
         padding: 5px 10px;
         margin-left: 10px;
         border: 1px solid #ddd;
@@ -63,7 +74,7 @@
         background-color: #fff;
         cursor: pointer;
       }
-      .header button:hover {
+      .search-bar button:hover {
         background-color: #f0f0f0;
       }
       .photo-grid {
@@ -107,13 +118,10 @@
       <div class="sidebar">
         <h3>Discover</h3>
         <ul>
-          <a style="text-decoration: none" href="http://127.0.0.1:5000/">
+          <a style="text-decoration: none" href="/">
             <li>- Photo list</li>
           </a>
-          <a
-            style="text-decoration: none"
-            href="http://127.0.0.1:5000/showuserlist"
-          >
+          <a style="text-decoration: none" href="/showuserlist">
             <li>- User list</li>
           </a>
           <li>- Message</li>
@@ -122,12 +130,20 @@
       <div class="main-content">
         <div class="header">
           <h2>All photo</h2>
+          <div class="search-bar">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search...for..keyword.."
+            />
+            <button onclick="searchPhotos()">Search</button>
+          </div>
           <div>
             <button onclick="location.href='/logout'">Logout</button>
           </div>
         </div>
-        <a href="http://127.0.0.1:5000/upload">+ Add photo</a>
-        <div class="photo-grid">
+        <a href="/upload">+ Add photo</a>
+        <div id="photo-grid" class="photo-grid">
           {% for photo in photos %}
           <a
             style="text-decoration: none"
@@ -152,5 +168,11 @@
       alert('{{ messages[-1] }}');
     </script>
     {% endif %} {% endwith %}
+    <script>
+      function searchPhotos() {
+        const searchInput = document.getElementById('search-input').value;
+        window.location.href = '/search/' + searchInput;
+      }
+    </script>
   </body>
 </html>

@@ -55,7 +55,18 @@
         margin: 0;
         color: #333;
       }
-      .header button {
+      .header .search-bar {
+        display: flex;
+        align-items: center;
+      }
+      .search-bar input[type='text'] {
+        padding: 5px;
+        width: 400px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
+      .search-bar button {
         padding: 5px 10px;
         margin-left: 10px;
         border: 1px solid #ddd;
@@ -63,7 +74,7 @@
         background-color: #fff;
         cursor: pointer;
       }
-      .header button:hover {
+      .search-bar button:hover {
         background-color: #f0f0f0;
       }
       .photo-grid {
@@ -122,6 +133,10 @@
       <div class="main-content">
         <div class="header">
           <h2>All photo</h2>
+          <div class="search-bar">
+            <input type="text" placeholder="Search...for..keyword.." />
+            <button onclick="searchPhotos()">Search</button>
+          </div>
           <div>
             <button onclick="location.href='/login'">Log In</button>
           </div>
@@ -148,5 +163,10 @@
       alert('{{ messages[-1] }}');
     </script>
     {% endif %} {% endwith %}
+    <script>
+      function searchPhotos() {
+        alert('로그인 후 이용하세요');
+      }
+    </script>
   </body>
 </html>

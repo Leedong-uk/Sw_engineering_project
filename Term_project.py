@@ -1,7 +1,7 @@
 from flask import Flask, session, redirect, url_for, render_template, flash
 from Login import login as login_function, logout as logout_function
 from Upload import upload as upload_function, posting as posting_function
-from Homepage import homepage as homepage_function
+from Homepage import homepage as homepage_function, search as search_function
 from Register import register as register_function
 from Photo_detail import photo_detail as photo_detail_function
 from Photo_modify import photo_modify as photo_modify_function, revise as revise_function
@@ -49,5 +49,10 @@ def revise(photo_id):
 @app.route('/showuserlist')
 def show():
     return show_user_list_function()
+
+@app.route('/search/<keyword>')
+def search(keyword):
+    return search_function(keyword)
+
 if __name__ == '__main__':
     app.run(debug=True)
