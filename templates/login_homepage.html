@@ -107,7 +107,9 @@
       <div class="sidebar">
         <h3>Discover</h3>
         <ul>
-          <li>- Photo list</li>
+          <a style="text-decoration: none" href="http://127.0.0.1:5000/">
+            <li>- Photo list</li>
+          </a>
           <li>- User list</li>
           <li>- Message</li>
         </ul>
@@ -122,7 +124,11 @@
         <a href="http://127.0.0.1:5000/upload">+ Add photo</a>
         <div class="photo-grid">
           {% for photo in photos %}
-          <div class="photo-card">
+          <a
+            style="text-decoration: none"
+            href="{{ url_for('photodetail', photo_id=(photo['_id'])) }}"
+            class="photo-card"
+          >
             <img
               src="{{ url_for('static', filename='user_images/' + photo['file']) }}"
               alt="Photo"
@@ -131,7 +137,7 @@
               <h4>{{ photo['username'] }}</h4>
               <p>{{ photo['keyword'] }}</p>
             </div>
-          </div>
+          </a>
           {% endfor %}
         </div>
       </div>

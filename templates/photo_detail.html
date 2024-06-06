@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photo Detail</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+      .photo-detail {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .photo-detail img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+      }
+      .photo-detail .info {
+        padding: 10px 0;
+        text-align: center;
+      }
+      .photo-detail .info h2 {
+        margin: 10px 0;
+        color: black;
+      }
+      .photo-detail .info p {
+        margin: 5px 0;
+        color: black;
+      }
+      .edit-button-container {
+        text-align: right;
+      }
+      .edit-button-container input {
+        padding: 5px;
+        margin-bottom: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .edit-button-container input:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="photo-detail">
+      <div class="edit-button-container">
+        <form>
+          <input type="button" value="수정하기" />
+        </form>
+      </div>
+      <img
+        src="{{ url_for('static', filename='user_images/' + photo['file']) }}"
+        alt="Photo"
+      />
+      <div class="info">
+        <h2>Title: {{ photo['title'] }}</h2>
+        <p>작성자: {{ photo['username'] }}</p>
+        <p>키워드: {{ photo['keyword'] }}</p>
+        <p>설명: {{ photo['description'] }}</p>
+      </div>
+    </div>
+  </body>
+</html>

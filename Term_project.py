@@ -3,6 +3,7 @@ from Login import login as login_function, logout as logout_function
 from Upload import upload as upload_function, posting as posting_function
 from Homepage import homepage as homepage_function
 from Register import register as register_function
+from Photo_detail import photo_detail as photo_detail_function  
 
 app = Flask(__name__)
 app.secret_key = 'termproject2024'
@@ -30,6 +31,10 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     return register_function()
+
+@app.route('/photodetail/<photo_id>') 
+def photodetail(photo_id):
+    return photo_detail_function(photo_id)
 
 if __name__ == '__main__':
     app.run(debug=True)
