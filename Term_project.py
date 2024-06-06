@@ -5,6 +5,7 @@ from Homepage import homepage as homepage_function
 from Register import register as register_function
 from Photo_detail import photo_detail as photo_detail_function
 from Photo_modify import photo_modify as photo_modify_function, revise as revise_function
+from UserList import show_user_list as show_user_list_function
 
 app = Flask(__name__)
 app.secret_key = 'termproject2024'
@@ -45,5 +46,8 @@ def photomodify(photo_id):
 def revise(photo_id):
     return revise_function(photo_id)
 
+@app.route('/showuserlist')
+def show():
+    return show_user_list_function()
 if __name__ == '__main__':
     app.run(debug=True)
