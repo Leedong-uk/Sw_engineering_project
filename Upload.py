@@ -22,7 +22,7 @@ def upload():
 @app.route('/posting', methods=['POST'])
 def posting():
     if 'username' not in session:
-        flash("로그인하세요")
+        flash("로그인 후 이용하세요.")
         return redirect(url_for('homepage'))
 
     else :
