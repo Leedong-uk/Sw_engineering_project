@@ -3,26 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User List</title>
+    <title>Homepage</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f3e9d9;
+        background-color: #f9f9f9;
       }
       .container {
-        width: 90%;
-        margin: 20px;
+        display: flex;
+        height: 100vh;
       }
-      h1 {
-        text-align: center;
-        margin-bottom: 20px;
+      .sidebar {
+        width: 200px;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-right: 1px solid #ddd;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar h3 {
+        margin-top: 0;
         color: #333;
-        position: relative;
+      }
+      .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      .sidebar ul li {
+        margin: 10px 0;
+        color: #666;
+        cursor: pointer;
+      }
+      .sidebar ul li:hover {
+        color: #000;
+      }
+      .main-content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .header h2 {
+        margin: 0;
+        color: #333;
+      }
+      .header button {
+        padding: 5px 10px;
+        margin-left: 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .header button:hover {
+        background-color: #f0f0f0;
       }
       .user-table {
         width: 100%;
@@ -69,35 +111,46 @@
       .user-id {
         color: #888;
       }
-      .home-icon {
-        float: right;
-        margin-top: 10px;
-      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>
-        User List
-        <a href="{{ url_for('homepage') }}">
-          <img
-            src="{{ url_for('static', filename='images/home.png') }}"
-            class="home-icon"
-            alt="Home"
-          />
-        </a>
-      </h1>
-      <div class="user-table">
-        {% for user in useraccount %}
-        <div class="user-row">
-          <div class="profile-img"></div>
-          <div class="user-info">
-            <span class="user-name">{{ user['username'] }}</span>
-            <span class="user-id">{{ user['email'] }}</span>
-          </div>
+      <div class="sidebar">
+        <h3>Discover</h3>
+        <ul>
+          <a style="text-decoration: none" href="http://127.0.0.1:5000/">
+            <li>- Photo list</li>
+          </a>
+          <a
+            style="text-decoration: none"
+            href="http://127.0.0.1:5000/showuserlist"
+          >
+            <li>- User list</li>
+          </a>
+          <li>- Message</li>
+        </ul>
+      </div>
+      <div class="main-content">
+        <div class="header">
+          <h2>User List</h2>
         </div>
-        {% endfor %}
+        <div class="user-table">
+          {% for user in useraccount %}
+          <div class="user-row">
+            <div class="profile-img"></div>
+            <div class="user-info">
+              <span class="user-name">{{ user['username'] }}</span>
+              <span class="user-id">{{ user['email'] }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <script type="text/javascript">
+      alert('{{ messages[-1] }}');
+    </script>
+    {% endif %} {% endwith %}
   </body>
 </html>
