@@ -1,17 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock %}</title>
+    <title>파일 수정</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='upload_style.css') }}"
+    />
   </head>
   <body>
+    <div class="container">
+      <form
+        id="uploadForm"
+        action="{{ url_for('revise', photo_id=photo._id) }}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-inner">
+          <div class="image-section">
+            <div class="image-preview" id="imagePreview">
+              <img
+                id="imageElement"
+                src="{{ url_for('static', filename='user_images/' + photo['file']) }}"
+                alt="No Image"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="document.getElementById('image_file').click();"
+            >
+              파일 선택
+            </button>
+            <input
+              type="file"
+              class="custom-file-input"
+              id="image_file"
+              name="image_file"
+              style="display: none"
+              onchange="previewImage(event)"
+            />
+          </div>
+          <div class="separator"></div>
+          <div class="form-section">
+            <h2>파일 수정</h2>
+            <div class="form-group">
+              <label for="image_title">제목</label>
+              <input
+                type="text"
+                class="form-control"
+                id="image_title"
+                name="image_title"
+                value="{{ photo.title }}"
+                placeholder="Please enter a title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="image_keyword">키워드</label>
+              <input
+                type="text"
+                class="form-control"
+                id="image_keyword"
+                name="image_keyword"
+                value="{{ photo.keyword }}"
+                placeholder="Enter keywords"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="image_description">설명</label>
+              <textarea
+                class="form-control"
+                id="image_description"
+                name="image_description"
+                placeholder="Enter a description"
+                required
+              >
+{{ photo.description }}</textarea
+              >
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="photo_id" value="{{ photo._id }}" />
+        <button type="submit" class="btn btn-primary">수정 완료</button>
+      </form>
+    </div>
+    <script>
+      function previewImage(event) {
+        const input = event.target;
+        const reader = new FileReader();
+        reader.onload = function () {
+          const imageElement = document.getElementById('imageElement');
+          imageElement.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    </script>
     {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul>
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    <script type="text/javascript">
+      alert('{{ messages[-1] }}');
+    </script>
+    {% endif %} {% endwith %}
   </body>
 </html>

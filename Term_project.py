@@ -4,7 +4,7 @@ from Upload import upload as upload_function, posting as posting_function
 from Homepage import homepage as homepage_function
 from Register import register as register_function
 from Photo_detail import photo_detail as photo_detail_function
-from Photo_modify import photo_modify as photo_modify_function  
+from Photo_modify import photo_modify as photo_modify_function, revise as revise_function
 
 app = Flask(__name__)
 app.secret_key = 'termproject2024'
@@ -37,9 +37,13 @@ def register():
 def photodetail(photo_id):
     return photo_detail_function(photo_id)
 
-@app.route('/photomodify/<writer>') 
-def photomodify(writer):
-    return photo_modify_function(writer)
+@app.route('/photomodify/<photo_id>') 
+def photomodify(photo_id):
+    return photo_modify_function(photo_id)
+
+@app.route('/revise/<photo_id>', methods=['POST'])
+def revise(photo_id):
+    return revise_function(photo_id)
 
 if __name__ == '__main__':
     app.run(debug=True)
