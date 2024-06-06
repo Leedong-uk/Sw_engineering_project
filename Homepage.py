@@ -9,7 +9,8 @@ photo_collection = db["Photo"]
 def homepage():
     if 'username' not in session:
         print("No username in session")
-        return render_template('not_login_homepage.html')
+        photos = list(photo_collection.find({}))
+        return render_template('not_login_homepage.html',photos = photos)
     else:
         print("Username in session:", session['username'])
         photos = list(photo_collection.find({}))

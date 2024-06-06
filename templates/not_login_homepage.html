@@ -38,7 +38,6 @@
       .sidebar ul li:hover {
         color: #000;
       }
-
       .main-content {
         flex: 1;
         padding: 20px;
@@ -86,8 +85,8 @@
       }
       .photo-card img {
         width: 100%;
-        height: auto;
-        display: block;
+        height: 250px;
+        object-fit: cover;
       }
       .photo-card .info {
         padding: 10px;
@@ -124,6 +123,7 @@
         </div>
         <a href="http://127.0.0.1:5000/upload">+ Add photo</a>
         <div class="photo-grid">
+          {% for photo in photos %}
           <div class="photo-card">
             <img
               src="{{ url_for('static', filename='images/no_image_icon.png') }}"
@@ -131,66 +131,17 @@
             />
             <div class="info">
               <h4>Name</h4>
-              <p>keyword</p>
+              <p>Keyword</p>
             </div>
           </div>
-          <div class="photo-card">
-            <img
-              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
-              alt="Photo"
-            />
-            <div class="info">
-              <h4>Name</h4>
-              <p>keyword</p>
-            </div>
-          </div>
-          <div class="photo-card">
-            <img
-              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
-              alt="Photo"
-            />
-            <div class="info">
-              <h4>Name</h4>
-              <p>keyword</p>
-            </div>
-          </div>
-          <div class="photo-card">
-            <img
-              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
-              alt="Photo"
-            />
-            <div class="info">
-              <h4>Name</h4>
-              <p>keyword</p>
-            </div>
-          </div>
-          <div class="photo-card">
-            <img
-              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
-              alt="Photo"
-            />
-            <div class="info">
-              <h4>Name</h4>
-              <p>keyword</p>
-            </div>
-          </div>
-          <div class="photo-card">
-            <img
-              src="{{ url_for('static', filename='images/no_image_icon.png') }}"
-              alt="Photo"
-            />
-            <div class="info">
-              <h4>Name</h4>
-              <p>keyword</p>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
-    {%with messages = get_flashed_messages()%} {%if messages %}
+    {% with messages = get_flashed_messages() %} {% if messages %}
     <script type="text/javascript">
-      alert('{{messages[-1]}}');
+      alert('{{ messages[-1] }}');
     </script>
-    {%endif%} {%endwith%}
+    {% endif %} {% endwith %}
   </body>
 </html>
