@@ -67,12 +67,16 @@ def search(keyword):
 def message():
     if 'username' in session:
         current_user = session['username']
-        # 나에게 메시지를 보낸 적이 있는 사용자 목록 추출
-        senders = messages_collection.distinct('sender', {'receiver': current_user})
+        # 나에게 메시지를 보낸 적이 있는 사용자와 내가 보낸 메시지를 모두 포함하는 사용자 목록 추출
+        senders_to_me = messages_collection.distinct('sender', {'receiver': current_user})
+        senders_from_me = messages_collection.distinct('receiver', {'sender': current_user})
         # 나 자신은 제외
-        senders = [sender for sender in senders if sender != current_user]
+        senders_to_me = [sender for sender in senders_to_me if sender != current_user]
+        senders_from_me = [sender for sender in senders_from_me if sender != current_user]
+        # 중복을 제거한 후 모든 보낸 메시지와 받은 메시지의 사용자 목록 결합
+        all_senders = list(set(senders_to_me + senders_from_me))
         # 해당 사용자 목록으로 유저 조회
-        users = users_collection.find({'username': {'$in': senders}}, {"username": 1, "_id": 0})
+        users = users_collection.find({'username': {'$in': all_senders}}, {"username": 1, "_id": 0})
         return render_template('message.html', users=users)
     return redirect(url_for('login'))
 
