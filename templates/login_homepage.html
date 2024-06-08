@@ -124,7 +124,9 @@
           <a style="text-decoration: none" href="/showuserlist">
             <li>- User list</li>
           </a>
-          <li><a href="/message/" id="message-link">- Message</a></li>
+          <a style="text-decoration: none" href="/message/" id="message-link">
+            <li>- Message</li></a
+          >
         </ul>
       </div>
       <div class="main-content">
@@ -176,17 +178,16 @@
 
       function checkForNewMessages() {
         fetch('/notifications')
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             if (data.new_messages > 0) {
               const messageLink = document.getElementById('message-link');
               messageLink.innerHTML = `- Message (${data.new_messages} new)`;
               messageLink.style.color = 'red'; // 새로운 메시지 알림 색상 변경
             }
           })
-          .catch(error => console.error('Error:', error));
+          .catch((error) => console.error('Error:', error));
       }
-
 
       window.onload = checkForNewMessages;
     </script>
