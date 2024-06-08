@@ -9,6 +9,7 @@ photo_collection = db["Photo"]
 def photo_detail(photo_id):
     photo = photo_collection.find_one({"_id": ObjectId(photo_id)})
     if photo:
-        return render_template('photo_detail.html', photo=photo)
+        uploader = photo.get('username')
+        return render_template('photo_detail.html', photo=photo, uploader=uploader)
     else:
         return "Photo not found", 404

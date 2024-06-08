@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅 - {{ username }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 200px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-right: 1px solid #ddd;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+            color: #666;
+            cursor: pointer;
+        }
+        .sidebar ul li:hover {
+            color: #000;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #333;
+        }
+        .header button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .header button:hover {
+            background-color: #f0f0f0;
+        }
+        .chat-window {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fff;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-message strong {
+            color: #333;
+        }
+        .chat-message em {
+            color: #777;
+        }
+        .message-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .message-form button {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .message-form button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .delete-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .delete-button:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h3>사용자 목록</h3>
+            <ul>
+                {% for user in users %}
+                    <li><a href="{{ url_for('chat', username=user['username']) }}">{{ user['username'] }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h2>채팅 - {{ username }}</h2>
+                <a href="{{ url_for('message') }}"><button>뒤로</button></a>
+            </div>
+            <div class="chat-window">
+                {% for message in messages %}
+                    <div class="chat-message">
+                        <strong>{{ message['sender'] }}:</strong> {{ message['message'] }} <em>{{ message['timestamp'] }}</em>
+                        {% if message['sender'] == session['username'] %}
+                            <form action="{{ url_for('delete_message', message_id=message['_id']) }}" method="post" style="display: inline;">
+                                <button type="submit" class="delete-button">x</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <form class="message-form" method="post">
+                <textarea name="message"></textarea>
+                <button type="submit">보내기</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

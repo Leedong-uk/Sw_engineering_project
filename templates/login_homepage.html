@@ -124,7 +124,7 @@
           <a style="text-decoration: none" href="/showuserlist">
             <li>- User list</li>
           </a>
-          <li>- Message</li>
+          <li><a href="/message/" id="message-link">- Message</a></li>
         </ul>
       </div>
       <div class="main-content">
@@ -173,6 +173,22 @@
         const searchInput = document.getElementById('search-input').value;
         window.location.href = '/search/' + searchInput;
       }
+
+      function checkForNewMessages() {
+        fetch('/notifications')
+          .then(response => response.json())
+          .then(data => {
+            if (data.new_messages > 0) {
+              const messageLink = document.getElementById('message-link');
+              messageLink.innerHTML = `- Message (${data.new_messages} new)`;
+              messageLink.style.color = 'red'; // 새로운 메시지 알림 색상 변경
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+
+
+      window.onload = checkForNewMessages;
     </script>
   </body>
 </html>
