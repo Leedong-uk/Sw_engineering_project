@@ -173,7 +173,11 @@
     <script>
       function searchPhotos() {
         const searchInput = document.getElementById('search-input').value;
-        window.location.href = '/search/' + searchInput;
+        if (!searchInput) {
+          alert('키워드를 입력하세요');
+        } else {
+          window.location.href = '/search/' + searchInput;
+        }
       }
 
       function checkForNewMessages() {
@@ -183,7 +187,7 @@
             if (data.new_messages > 0) {
               const messageLink = document.getElementById('message-link');
               messageLink.innerHTML = `- Message (${data.new_messages} new)`;
-              messageLink.style.color = 'red'; // 새로운 메시지 알림 색상 변경
+              messageLink.style.color = 'red';
             }
           })
           .catch((error) => console.error('Error:', error));
